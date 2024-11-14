@@ -19,7 +19,6 @@ class questionInput extends StatelessWidget {
           options.add(value);
         }
       });
-      // final newQuestion = new Question(title: _formKey.currentState!.value['title'], options: options, correct: correct)
       final newQuestion = new Question(
           title: titleController.text,
           options: options,
@@ -38,14 +37,6 @@ class questionInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    titleController.addListener(() {
-      if (titleController.text.isNotEmpty) {
-        formController.hasTitle.value = true;
-      } else {
-        formController.hasTitle.value = false;
-      }
-    });
-
     return FormBuilder(
       key: _formKey,
       child: Column(
@@ -62,56 +53,50 @@ class questionInput extends StatelessWidget {
           ),
           SizedBox(height: size.width < Breakpoints.sm ? 0 : 20),
           Obx(() {
-            return formController.hasTitle.value
-                ? Column(
-                    children: List.generate(
-                      formController.answerCount.value,
-                      (index) => Column(children: [
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: FormBuilderTextField(
-                                groupId: 'answer',
-                                name: 'answer$index',
-                                decoration: InputDecoration(
-                                  fillColor:
-                                      Theme.of(context).colorScheme.onSecondary,
-                                  hintText: 'Text of the Answer',
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
+            return Column(
+              children: List.generate(
+                formController.answerCount.value,
+                (index) => Column(children: [
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FormBuilderTextField(
+                          groupId: 'answer',
+                          name: 'answer$index',
+                          decoration: InputDecoration(
+                            fillColor:
+                                Theme.of(context).colorScheme.onSecondary,
+                            hintText: 'Text of the Answer',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      if (index == formController.answerCount.value - 1)
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.zero,
                             ),
-                            const SizedBox(width: 10),
-                            if (index == formController.answerCount.value - 1)
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                  onPressed: () => {
-                                        formController.increment(),
-                                      },
-                                  child: Icon(Icons.add)),
-                            const SizedBox(width: 10),
-                            ElevatedButton(
-                                style: size.width < Breakpoints.sm
-                                    ? ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.zero,
-                                      )
-                                    : null,
-                                onPressed: () => {
-                                      correctAnswer(index),
-                                    },
-                                child: Icon(
-                                    formController.correctAnswer.value != index
-                                        ? Icons.check_circle_outline_outlined
-                                        : Icons.check_circle)),
-                          ],
-                        )
-                      ]),
-                    ),
+                            onPressed: formController.increment,
+                            child: Icon(Icons.add)),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                          style: size.width < Breakpoints.sm
+                              ? ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                )
+                              : null,
+                          onPressed: () => correctAnswer(index),
+                          child: Icon(
+                              formController.correctAnswer.value != index
+                                  ? Icons.check_circle_outline_outlined
+                                  : Icons.check_circle)),
+                    ],
                   )
-                : Container();
+                ]),
+              ),
+            );
           }),
           SizedBox(height: 20),
           ElevatedButton(

@@ -4,9 +4,11 @@
 
 This application (Quizzer) is a quiz platform where users can create and manage custom questionnaires. Users can configure a series of questions with multiple answers, selecting the correct answer for each one. The quiz is stored locally on the device, allowing users to delete questions if desired. Once at least one question is configured, users can start the quiz. The application will guide them through each question, keeping track of their score. Upon completing all questions, users are redirected to a results page displaying their total score. Users can then return to the homepage to edit the questionnaire or start a new quiz.
 
+In a previous version, the answer input field in the AddQuestions section would automatically display when the question input field was activated. However, due to optimization issues, this feature was adjusted, and now the answer input field is displayed by default.
+
 ### URL
 
-The application is deployed at: [Quiz Platform](http://www.google.com/)
+The application is deployed at: [Quizzer](https://quizzer-smoky.vercel.app/)
 
 ### Instructions
 
