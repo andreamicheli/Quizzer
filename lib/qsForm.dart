@@ -7,7 +7,7 @@ import 'package:quizzer/types.dart';
 
 class questionInput extends StatelessWidget {
   final questionsController = Get.find<QuestionsController>();
-  final _formKey = GlobalKey<FormBuilderState>();
+  static final _formKey = GlobalKey<FormBuilderState>();
   final TextEditingController titleController = TextEditingController();
   final formController = Get.find<FormController>();
 
