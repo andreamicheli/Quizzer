@@ -13,9 +13,10 @@ class questionInput extends StatelessWidget {
 
   _submit() {
     if (_formKey.currentState!.saveAndValidate()) {
+      print(_formKey.currentState!.value);
       List<String> options = [];
       _formKey.currentState!.value.forEach((key, value) {
-        if (key.startsWith('answer')) {
+        if (key.startsWith('answer') && value != null) {
           options.add(value);
         }
       });
